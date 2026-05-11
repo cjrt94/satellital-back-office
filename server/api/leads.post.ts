@@ -39,6 +39,16 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: 'Unauthorized' })
   }
 
+  // Origin check — only accept requests from allowed domains
+  const origin = getHeader(event, 'origin') || ''
+  const referer = getHeader(event, 'referer') || ''
+  const allowedDomains = ['satellitalpatrol.com', 'satellital-back-office.vercel.app']
+  const isAllowedOrigin = !origin || allowedDomains.some(d => origin.includes(d))
+  const isAllowedReferer = !referer || allowedDomains.some(d => referer.includes(d))
+  if (!isAllowedOrigin && !isAllowedReferer) {
+    throw createError({ statusCode: 403, message: 'Forbidden' })
+  }
+
   // CORS
   setResponseHeaders(event, {
     'Access-Control-Allow-Origin': '*',
