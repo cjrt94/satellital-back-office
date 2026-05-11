@@ -39,11 +39,13 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: 'Unauthorized' })
   }
 
-  // CORS - restrict to allowed origins
-  const allowedOrigin = process.env.ALLOWED_ORIGIN || '*'
+  // CORS
+  const allowedOrigins = (process.env.ALLOWED_ORIGIN || '*').split(',').map(o => o.trim())
+  const origin = getHeader(event, 'origin') || ''
+  const corsOrigin = allowedOrigins.includes('*') ? '*' : (allowedOrigins.includes(origin) ? origin : allowedOrigins[0])
   setResponseHeaders(event, {
-    'Access-Control-Allow-Origin': allowedOrigin,
-    'Access-Control-Allow-Methods': 'POST',
+    'Access-Control-Allow-Origin': corsOrigin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, x-api-key'
   })
 

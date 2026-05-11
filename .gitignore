@@ -6,3 +6,4 @@ dist
 service-account.json
 satellital-7f48b-firebase-adminsdk-fbsvc-*.json
 *.log
+.vercel
