@@ -1,0 +1,8 @@
+node_modules
+.nuxt
+.output
+dist
+.env
+service-account.json
+satellital-7f48b-firebase-adminsdk-fbsvc-*.json
+*.log
