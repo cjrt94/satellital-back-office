@@ -217,8 +217,8 @@ const filteredLeads = computed(() => {
   )
 })
 
-const openDetail = (lead: Lead) => {
-  selectedLead.value = lead
+const openDetail = (row: any) => {
+  selectedLead.value = row.original
   showDetail.value = true
 }
 

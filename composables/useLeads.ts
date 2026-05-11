@@ -49,7 +49,7 @@ export const useLeads = () => {
           utmCampaign: data.utmCampaign || '',
           utmTerm: data.utmTerm || '',
           utmContent: data.utmContent || '',
-          createdAt: data.createdAt || ''
+          createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toLocaleDateString('es-PE', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : ''
         } as Lead
       })
     } catch (e: any) {

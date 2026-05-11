@@ -4,7 +4,7 @@
  * Pegar en Webflow > Project Settings > Custom Code > Before </body>
  * envuelto en <script> tags.
  *
- * En Webflow Designer: seleccionar el form > Settings > ID: satellital-form
+ * En Webflow Designer: al div contenedor del form ponerle ID: satellital-form
  */
 (function () {
   var API_URL = 'https://satellital-back-office.vercel.app/api/leads';
@@ -23,7 +23,8 @@
     try { return JSON.parse(sessionStorage.getItem('utm_data') || '{}'); }
     catch (e) { return {}; }
   }
-  var form = document.getElementById('satellital-form');
+  var wrapper = document.getElementById('satellital-form');
+  var form = wrapper ? wrapper.querySelector('form') : null;
   if (!form) return;
   form.addEventListener('submit', function () {
     var email = (form.querySelector('[name="Email"]') || {}).value || '';
